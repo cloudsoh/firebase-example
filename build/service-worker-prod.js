@@ -16,7 +16,7 @@
   window.addEventListener('load', function() {
       if ('serviceWorker' in navigator &&
           (window.location.protocol === 'https:' || isLocalhost)) {
-        navigator.serviceWorker.register('service-worker.js')
+        navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then(function(registration) {
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
@@ -55,74 +55,3 @@
       }
   });
 })();
-
-var config = {
-  apiKey: 'AIzaSyCJJwbDRjROVaGhpMaJ01I2SyjKcrmn324',
-  authDomain: 'cloudsoh-193811.firebaseapp.com',
-  databaseURL: 'https://cloudsoh-193811.firebaseio.com',
-  projectId: 'cloudsoh-193811',
-  storageBucket: 'cloudsoh-193811.appspot.com',
-  messagingSenderId: '901374182728'
-}
-
-var firebaseApp = firebase.initializeApp(config)
-var db = firebaseApp.firestore()
-// let subscriberRef = db.ref('/blog-subscribers')
-
-const messaging = firebase.messaging()
-messaging.usePublicVapidKey('BBJJhuNELViHHXLt3m3oWwfKlcV7NpIRvsL1jBI4pU_d7p0A3-pREnsrn6W9wGY2OQ_qnX1mEKB5aavsBXiM36g')
-messaging.requestPermission()
-  .then(function () {
-    console.log('Notification permission granted.')
-    // Get Instance ID token. Initially this makes a network call, once retrieved
-    // subsequent calls to getToken will return from cache.
-    messaging.getToken()
-      .then(function (currentToken) {
-        if (currentToken) {
-          console.log("token = "+currentToken)
-          db.collection("subscribers").add({
-            iid: currentToken
-          })
-            .then(function (docRef) {
-              console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function (error) {
-              console.error("Error adding document: ", error);
-            });
-          // sendTokenToServer(currentToken)
-          // updateUIForPushEnabled(currentToken)
-        } else {
-          // Show permission request.
-          console.log('No Instance ID token available. Request permission to generate one.')
-          // Show permission UI.
-          // updateUIForPushPermissionRequired()
-          // setTokenSentToServer(false)
-        }
-      })
-      .catch(function (err) {
-        console.log('An error occurred while retrieving token. ', err)
-        console.log(err)
-        // showToken('Error retrieving Instance ID token. ', err)
-        // setTokenSentToServer(false)
-      })
-  })
-  .catch(function (err) {
-    console.log('Unable to get permission to notify.', err)
-  })
-
-messaging.onTokenRefresh(function () {
-  messaging.getToken()
-    .then(function (refreshedToken) {
-      console.log('Token refreshed.');
-      // Indicate that the new Instance ID token has not yet been sent to the
-      // app server.
-      // setTokenSentToServer(false);
-      // Send Instance ID token to app server.
-      // sendTokenToServer(refreshedToken);
-      // ...
-    })
-    .catch(function (err) {
-      console.log('Unable to retrieve refreshed token ', err);
-      // showToken('Unable to retrieve refreshed token ', err);
-    });
-});

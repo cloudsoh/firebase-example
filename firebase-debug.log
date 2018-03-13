@@ -1,0 +1,41 @@
+[debug] [2018-03-13T03:32:45.959Z] ----------------------------------------------------------------------
+[debug] [2018-03-13T03:32:45.963Z] Command:       /home/itwonders/.nvm/versions/node/v6.0.0/bin/node /home/itwonders/.nvm/versions/node/v6.0.0/bin/firebase serve
+[debug] [2018-03-13T03:32:45.964Z] CLI Version:   3.17.5
+[debug] [2018-03-13T03:32:45.964Z] Platform:      linux
+[debug] [2018-03-13T03:32:45.964Z] Node Version:  v6.0.0
+[debug] [2018-03-13T03:32:45.964Z] Time:          Tue Mar 13 2018 11:32:45 GMT+0800 (+08)
+[debug] [2018-03-13T03:32:45.964Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-03-13T03:32:46.011Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-03-13T03:32:46.012Z] > authorizing via signed-in user
+[debug] [2018-03-13T03:32:46.015Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-03-13T03:32:46.016Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/A5S2k-xBVZ0vX9z34tkcoa92q1dYCFui2zCa6nUS2ng',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Tue Mar 13 2018 11:32:46 GMT+0800 (+08)
+[debug] [2018-03-13T03:32:46.361Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-13T03:32:46.414Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/cloudsoh-193811  
+  
+ Tue Mar 13 2018 11:32:46 GMT+0800 (+08)
+[debug] [2018-03-13T03:32:47.471Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-13T03:32:47.473Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/cloudsoh-193811/tokens  
+  
+ Tue Mar 13 2018 11:32:47 GMT+0800 (+08)
+[debug] [2018-03-13T03:32:48.399Z] <<< HTTP RESPONSE 200
+[debug] [2018-03-13T03:32:48.401Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/cloudsoh-193811  
+  
+ Tue Mar 13 2018 11:32:48 GMT+0800 (+08)
+[debug] [2018-03-13T03:32:49.638Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/itwonders/firebase-example'...
+[info] 
+[debug] [2018-03-13T03:32:49.642Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/901374182728/clients/_:getWebAppConfig  
+  
+ Tue Mar 13 2018 11:32:49 GMT+0800 (+08)
+[debug] [2018-03-13T03:32:50.451Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: dist
+[info] ✔  hosting: Local server: http://localhost:5000
+

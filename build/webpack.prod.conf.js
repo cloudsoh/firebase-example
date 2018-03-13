@@ -13,6 +13,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const loadMinified = require('./load-minified')
+const babel = require('babel-core')
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -95,20 +96,36 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunks: ['vendor']
     }),
     // copy custom static assets
+    // copy custom static assets
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
+      },
+      {
+        // copy custom service worker
+        from: path.resolve(__dirname, '../src/custom-service-worker.js'),
+        to: config.build.assetsRoot + '/[name].js',
+        transform: (content, path) => {
+          // and transpile it while copying
+          return babel.transformFileSync(path).code;
+        }
       }
     ]),
     // service worker caching
     new SWPrecacheWebpackPlugin({
-      cacheId: 'pwa-firebase',
+      cacheId: 'survey',
       filename: 'firebase-messaging-sw.js',
       staticFileGlobs: ['dist/**/*.{js,html,css}'],
       minify: true,
-      stripPrefix: 'dist/'
+      stripPrefix: 'dist/',
+      importScripts: [
+        {
+          // transformed custom-service-worker (es6 -> js)
+          filename: 'custom-service-worker.js'
+        }
+      ]
     })
   ]
 })
