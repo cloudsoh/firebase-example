@@ -34,72 +34,9 @@ Vue.config.productionTip = false
 let app
 var firebaseApp = firebase.initializeApp(config)
 var db = firebaseApp.database()
-const messaging = firebase.messaging()
+
 var firestore = firebaseApp.firestore()
 let subscriberRef = db.ref('/blog-subscribers')
-
-messaging.usePublicVapidKey('BBJJhuNELViHHXLt3m3oWwfKlcV7NpIRvsL1jBI4pU_d7p0A3-pREnsrn6W9wGY2OQ_qnX1mEKB5aavsBXiM36g')
-messaging.requestPermission()
-    .then(function () {
-        console.log('Notification permission granted.')
-        // Get Instance ID token. Initially this makes a network call, once retrieved
-        // subsequent calls to getToken will return from cache.
-        messaging.getToken()
-            .then(function (currentToken) {
-                if (currentToken) {
-                    console.log('token = ' + currentToken)
-                    firestore.collection('subscribers').add({
-                        id: currentToken
-                    })
-                        .then(function (docRef) {
-                            console.log('Document written with ID: ', docRef.id)
-                        })
-                        .catch(function (error) {
-                            console.error('Error adding document: ', error)
-                        })
-                    // sendTokenToServer(currentToken)
-                    // updateUIForPushEnabled(currentToken)
-                } else {
-                    // Show permission request.
-                    console.log('No Instance ID token available. Request permission to generate one.')
-                    // Show permission UI.
-                    // updateUIForPushPermissionRequired()
-                    // setTokenSentToServer(false)
-                }
-            })
-            .catch(function (err) {
-                console.log('An error occurred while retrieving token. ', err)
-                console.log(err)
-                // showToken('Error retrieving Instance ID token. ', err)
-                // setTokenSentToServer(false)
-            })
-    })
-    .catch(function (err) {
-        console.log('Unable to get permission to notify.', err)
-    })
-
-messaging.onTokenRefresh(function () {
-    messaging.getToken()
-        .then(function (refreshedToken) {
-            console.log('Token refreshed.')
-            // Indicate that the new Instance ID token has not yet been sent to the
-            // app server.
-            // setTokenSentToServer(false);
-            // Send Instance ID token to app server.
-            // sendTokenToServer(refreshedToken);
-            // ...
-        })
-        .catch(function (err) {
-            console.log('Unable to retrieve refreshed token ', err)
-            // showToken('Unable to retrieve refreshed token ', err);
-        })
-})
-
-messaging.onMessage(function (payload) {
-    console.log('Message received. ', payload)
-    // ...
-})
-/* eslint-disable no-new */
 
 firebase.auth().onAuthStateChanged((user) => {
     app = new Vue({
@@ -108,6 +45,7 @@ firebase.auth().onAuthStateChanged((user) => {
         store,
         components: { App },
         data: {
+            messaging: null
         },
         computed: {
         },
@@ -119,20 +57,68 @@ firebase.auth().onAuthStateChanged((user) => {
             // }
         },
         created () {
-            // subscriberRef.on('value', (snapshot) => {
-            //     if (this.firebase.subscribers) { this.firebase.subscribers = snapshot.val() }
-            // })
-            // if ('serviceWorker' in navigator) {
-            //     window.addEventListener('load', function () {
-            //         navigator.serviceWorker.register('/sw.js').then(function (registration) {
-            //             // Registration was successful
-            //             console.log('ServiceWorker registration successful with scope: ', registration.scope)
-            //         }, function (err) {
-            //             // registration failed :(
-            //             console.log('ServiceWorker registration failed: ', err)
-            //         })
-            //     })
-            // }
+            this.messaging = firebase.messaging()
+            this.messaging.usePublicVapidKey('BCF_JCs8Gr6O2TXD8eADD1ELVd3FPWQ5SEKkbytPD0n_oikhbHBiZKw3YFRKP8qNw3_4wwQ6hNzop9hrwy7R9_Y')
+            this.messaging.requestPermission()
+                .then(() => {
+                    console.log('Notification permission granted.')
+                    // Get Instance ID token. Initially this makes a network call, once retrieved
+                    // subsequent calls to getToken will return from cache.
+                    this.messaging.getToken()
+                        .then(function (currentToken) {
+                            if (currentToken) {
+                                console.log('token = ' + currentToken)
+                                firestore.collection('subscribers').add({
+                                    id: currentToken
+                                })
+                                    .then(function (docRef) {
+                                        console.log('Document written with ID: ', docRef.id)
+                                    })
+                                    .catch(function (error) {
+                                        console.error('Error adding document: ', error)
+                                    })
+                                // sendTokenToServer(currentToken)
+                                // updateUIForPushEnabled(currentToken)
+                            } else {
+                                // Show permission request.
+                                console.log('No Instance ID token available. Request permission to generate one.')
+                                // Show permission UI.
+                                // updateUIForPushPermissionRequired()
+                                // setTokenSentToServer(false)
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log('An error occurred while retrieving token. ', err)
+                            // showToken('Error retrieving Instance ID token. ', err)
+                            // setTokenSentToServer(false)
+                        })
+                })
+                .catch(function (err) {
+                    console.log('Unable to get permission to notify.', err)
+                })
+
+            this.messaging.onTokenRefresh(() => {
+                this.messaging.getToken()
+                    .then(function (refreshedToken) {
+                        console.log('Token refreshed.')
+                        // Indicate that the new Instance ID token has not yet been sent to the
+                        // app server.
+                        // setTokenSentToServer(false);
+                        // Send Instance ID token to app server.
+                        // sendTokenToServer(refreshedToken);
+                        // ...
+                    })
+                    .catch(function (err) {
+                        console.log('Unable to retrieve refreshed token ', err)
+                        // showToken('Unable to retrieve refreshed token ', err);
+                    })
+            })
+
+            this.messaging.onMessage((payload) => {
+                console.log('Message received. ', payload)
+                // ...
+            })
+            /* eslint-disable no-new */
         },
         template: '<App/>'
     })

@@ -17,12 +17,16 @@
             </div>
             <div id="navbarMenuHeroB" class="navbar-menu">
               <div class="navbar-end">
-                <router-link to="/" class="navbar-item" exact v-if="!isAuth">Login</router-link>
                 <template v-if="isAuth">
                   <router-link to="/dashboard" class="navbar-item">Dashboard</router-link>
                   <router-link to="/help" class="navbar-item">Help</router-link>
                   <a class="navbar-item" @click="logout">Logout</a>
                 </template>
+                <template v-else>
+                  <router-link to="/" class="navbar-item" exact>Login</router-link>
+                </template>
+                  <a class="navbar-item" @click="subscribe">Subscribe</a>
+                  <!-- <router-link to="/subscribe" class="navbar-item">Subscribe</router-link> -->
               </div>
             </div>
           </div>
@@ -36,12 +40,14 @@
 <script>
 import firebase from 'firebase'
 import { mapState, mapGetters } from 'vuex'
+import axios from 'axios'
 
 export default {
     name: 'App',
     data () {
         return {
-            loadingComponent: null
+            loadingComponent: null,
+            messaging: null
         }
     },
     computed: {
@@ -66,6 +72,24 @@ export default {
                     this.$router.replace('Home')
                 })
                 .catch((error) => alert(error))
+        },
+        subscribe(){
+          this.$root.messaging.requestPermission().then(() => {
+            this.$root.messaging.getToken().then(function (currentToken) {
+              if (currentToken) {
+                  axios.defaults.headers.common['Authorization'] = 'key=AAAA0d4WhUg:APA91bHjlSKyURyKwsBcWff76XdZgA13it5Iw7qKy0efUKCUKHOd4BgGPFoQYOXrABIiAmr9qWpkUL9r1dTnj78im4khwq2vXLVELyKRGEFvW0l-6bGluLTV9T8rDyxFRpjHjSn1rqP5';
+                  axios.defaults.headers.post['Content-Type'] = 'application/json';
+                  axios.post(`https://iid.googleapis.com/iid/v1/${currentToken}/rel/topics/movies`)
+                } else {
+                  console.log('No Instance ID token available. Request permission to generate one.')
+                }
+            })
+            .catch(function (err) {
+              console.log('An error occurred while retrieving token. ', err)
+            })
+          }).catch(function (err) {
+            console.log('Unable to get permission to notify.', err)
+          })
         }
     }
 }
