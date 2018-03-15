@@ -25,7 +25,11 @@
                 <template v-else>
                   <router-link to="/" class="navbar-item" exact>Login</router-link>
                 </template>
-                  <a class="navbar-item" @click="subscribe">Subscribe</a>
+                  <a class="navbar-item" @click="subscribe('front')">Subscribe(Front)</a>
+                  <a class="navbar-item" @click="subscribe('back')">Subscribe(Back)</a>
+                  <a class="navbar-item" @click="unsubscribe('front')">unSubscribe(Front)</a>
+                  <a class="navbar-item" @click="unsubscribe('back')">unSubscribe(Back)</a>
+                  <input type="text" v-model="topic">
                   <!-- <router-link to="/subscribe" class="navbar-item">Subscribe</router-link> -->
               </div>
             </div>
@@ -47,7 +51,8 @@ export default {
     data () {
         return {
             loadingComponent: null,
-            messaging: null
+            messaging: null,
+            topic: null
         }
     },
     computed: {
@@ -73,13 +78,75 @@ export default {
                 })
                 .catch((error) => alert(error))
         },
-        subscribe(){
+        subscribe(pos){
           this.$root.messaging.requestPermission().then(() => {
-            this.$root.messaging.getToken().then(function (currentToken) {
+            this.$root.messaging.getToken().then((currentToken) =>  {
               if (currentToken) {
+                let data = {
+                  token: currentToken,
+                  topic: this.topic
+                }
+                if(pos == 'back'){
+                  axios.post('http://127.0.0.1:8000/api/blog/subscribe', data)
+                    .then((response) => {
+                      console.log(response)
+                    }).catch((err) => {
+                      // axios.post('http://127.0.0.1:8000/api/blog/subscribe', data).then((resp) => {
+                      //   console.log('api ' , resp)
+                      // }).catch((err) => {
+                      //   console.log('api', err.response)
+                      // })
+                      console.log(err.response)
+                    })
+                }else{
                   axios.defaults.headers.common['Authorization'] = 'key=AAAA0d4WhUg:APA91bHjlSKyURyKwsBcWff76XdZgA13it5Iw7qKy0efUKCUKHOd4BgGPFoQYOXrABIiAmr9qWpkUL9r1dTnj78im4khwq2vXLVELyKRGEFvW0l-6bGluLTV9T8rDyxFRpjHjSn1rqP5';
                   axios.defaults.headers.post['Content-Type'] = 'application/json';
-                  axios.post(`https://iid.googleapis.com/iid/v1/${currentToken}/rel/topics/movies`)
+                  axios.post(`https://iid.googleapis.com/iid/v1/${currentToken}/rel/topics/${this.topic}`).then((resp) => {
+                    console.log('success', resp)
+                  }).catch( (err) => {
+                    console.log('error', err)
+                  })
+                }
+                } else {
+                  console.log('No Instance ID token available. Request permission to generate one.')
+                }
+            })
+            .catch(function (err) {
+              console.log('An error occurred while retrieving token. ', err)
+            })
+          }).catch(function (err) {
+            console.log('Unable to get permission to notify.', err)
+          })
+        },
+        unsubscribe(pos){
+          this.$root.messaging.requestPermission().then(() => {
+            this.$root.messaging.getToken().then((currentToken) =>  {
+              if (currentToken) {
+                let data = {
+                  registration_tokens: [currentToken],
+                  to: `/topics/${this.topic}`
+                }
+                if(pos == 'back'){
+                  axios.post('http://127.0.0.1:8000/api/blog/unsubscribe', data)
+                    .then((response) => {
+                      console.log(response)
+                    }).catch((err) => {
+                      // axios.post('http://127.0.0.1:8000/api/blog/subscribe', data).then((resp) => {
+                      //   console.log('api ' , resp)
+                      // }).catch((err) => {
+                      //   console.log('api', err.response)
+                      // })
+                      console.log(err.response)
+                    })
+                }else{
+                  axios.defaults.headers.common['Authorization'] = 'key=AAAA0d4WhUg:APA91bHjlSKyURyKwsBcWff76XdZgA13it5Iw7qKy0efUKCUKHOd4BgGPFoQYOXrABIiAmr9qWpkUL9r1dTnj78im4khwq2vXLVELyKRGEFvW0l-6bGluLTV9T8rDyxFRpjHjSn1rqP5';
+                  axios.defaults.headers.post['Content-Type'] = 'application/json';
+                  axios.post(`https://iid.googleapis.com/iid/v1:batchRemove`, data).then((resp) => {
+                    console.log('success', resp)
+                  }).catch( (err) => {
+                    console.log('error', err)
+                  })
+                }
                 } else {
                   console.log('No Instance ID token available. Request permission to generate one.')
                 }
