@@ -87,11 +87,11 @@ export default {
                   topic: this.topic
                 }
                 if(pos == 'back'){
-                  axios.post('http://127.0.0.1:8000/api/blog/subscribe', data)
+                  axios.post('http://heroku.cloudsoh.co/api/blog/subscribe', data)
                     .then((response) => {
                       console.log(response)
                     }).catch((err) => {
-                      // axios.post('http://127.0.0.1:8000/api/blog/subscribe', data).then((resp) => {
+                      // axios.post('http://heroku.cloudsoh.co/api/blog/subscribe', data).then((resp) => {
                       //   console.log('api ' , resp)
                       // }).catch((err) => {
                       //   console.log('api', err.response)
@@ -127,11 +127,11 @@ export default {
                   to: `/topics/${this.topic}`
                 }
                 if(pos == 'back'){
-                  axios.post('http://127.0.0.1:8000/api/blog/unsubscribe', data)
+                  axios.post('http://heroku.cloudsoh.co/api/blog/unsubscribe', data)
                     .then((response) => {
                       console.log(response)
                     }).catch((err) => {
-                      // axios.post('http://127.0.0.1:8000/api/blog/subscribe', data).then((resp) => {
+                      // axios.post('http://heroku.cloudsoh.co/api/blog/subscribe', data).then((resp) => {
                       //   console.log('api ' , resp)
                       // }).catch((err) => {
                       //   console.log('api', err.response)
