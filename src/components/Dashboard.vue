@@ -32,9 +32,6 @@ export default {
         }
     },
     created () {
-        // this.$root.firebase.subscribers.on('value', function (snapshot) {
-        //     this.$root.subscribers = snapshot.val()
-        // })
     }
 }
 </script>

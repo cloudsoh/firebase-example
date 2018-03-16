@@ -8,7 +8,6 @@ import VueFire from 'vuefire'
 import firebase from 'firebase'
 import store from '@/store/index'
 require('firebase/firestore')
-// import admin from 'firebase-admin'
 
 var config = {
     apiKey: 'AIzaSyCJJwbDRjROVaGhpMaJ01I2SyjKcrmn324',
@@ -18,13 +17,6 @@ var config = {
     storageBucket: 'cloudsoh-193811.appspot.com',
     messagingSenderId: '901374182728'
 }
-
-// var serviceAccount = require('@/assets/cloudsoh-193811-firebase-adminsdk-9s856-6b0a30fa22.json')
-
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL: 'https://cloudsoh-193811.firebaseio.com'
-// })
 
 Vue.use(VueFire)
 Vue.use(Buefy)
@@ -51,10 +43,6 @@ firebase.auth().onAuthStateChanged((user) => {
         },
         firebase: {
             subscribers: subscriberRef.limitToLast(25)
-            // subscribers: {
-            //     source: db.ref('/blog-subscribers'),
-            //     asObject: true
-            // }
         },
         methods: {
             requestNotification () {

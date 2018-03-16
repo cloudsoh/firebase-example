@@ -25,8 +25,6 @@
                 <template v-else>
                   <router-link to="/" class="navbar-item" exact>Login</router-link>
                 </template>
-                  
-                  <!-- <router-link to="/subscribe" class="navbar-item">Subscribe</router-link> -->
               </div>
             </div>
           </div>
@@ -50,16 +48,6 @@ export default {
         }
     },
     computed: {
-        // ...mapState({
-        //     loading: state => {
-        //         if (state.loading) {
-        //             this.loadingComponent = this.$loading.open()
-        //         } else {
-        //             this.loadingComponent.close()
-        //         }
-        //         return state.loading
-        //     }
-        // }),
         ...mapState(['currentUser']),
         ...mapGetters(['isAuth'])
     },
