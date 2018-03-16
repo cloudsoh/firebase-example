@@ -1,7 +1,7 @@
 <template lang="pug">
 .hero-body.columns.is-centered
     .column.has-text-centered.is-narrow.box.is-half
-        h1.is-size-1 asd
+        h1.is-size-1 Firestore
         hr
         br
         ul

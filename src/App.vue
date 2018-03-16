@@ -17,7 +17,7 @@
             <div id="navbarMenuHeroB" class="navbar-menu">
               <div class="navbar-end">
                 <template v-if="isAuth">
-                  <router-link to="/dashboard" class="navbar-item">Dashboard</router-link>
+                  <router-link to="/dashboard" class="navbar-item">Firestore</router-link>
                   <router-link to="/subscribe" class="navbar-item">Subscribe</router-link>
                   <router-link to="/send" class="navbar-item">Send</router-link>
                   <a class="navbar-item" @click="logout">Logout</a>
