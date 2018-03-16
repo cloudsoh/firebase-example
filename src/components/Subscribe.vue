@@ -1,11 +1,12 @@
 <template lang="pug">
 .hero-body.columns.is-centered
     .container
+        h1.title Subscribe a topic
+        b-field(label="Topic")
+            b-input(v-model="topic")
         div
             button.button(@click="subscribe") Subscribe
             button.button(@click="unsubscribe") Unsubscribe
-        b-field(label="Topic")
-            b-input(v-model="topic")
 </template>
 
 <script>

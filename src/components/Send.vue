@@ -1,6 +1,7 @@
 <template lang="pug">
 .hero-body.columns.is-centered
     .container
+        h1.title Send a message
         b-field(label="Target")
             b-input(v-model="target")
             b-switch(

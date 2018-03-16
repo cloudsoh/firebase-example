@@ -37,6 +37,7 @@
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faEye from '@fortawesome/fontawesome-free-solid/faEye'
 import firebase from 'firebase'
+import axios from 'axios'
 
 export default {
     components: {
@@ -64,10 +65,20 @@ export default {
             this.password = ''
         },
         register () {
+            let loading = this.$loading.open()
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-                .then((response) => alert('Successfully register'))
-                .catch((error) => console.log('error' + error))
-            this.clear()
+                .then((response) => {
+                    axios.post('http://localhost:8000/api/user/register', {'uid': response.uid}).then((resp) => {
+                        this.clear()
+                        this.$toast.open('Successfully register')
+                        this.$router.push('dashboard')
+                        loading.close()
+                    })
+                })
+                .catch((error) => {
+                    this.$toast(error.response)
+                    loading.close()
+                })
         },
         login () {
             firebase.auth().signInWithEmailAndPassword(this.email, this.password)
