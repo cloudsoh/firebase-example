@@ -1,0 +1,33 @@
+{
+    "sublimeTextKeymap.promptV3Features": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "editor.formatOnPaste": true,
+    "workbench.activityBar.visible": false,
+    "workbench.statusBar.visible": true,
+    "workbench.colorTheme": "Sublime Material Theme - Dark",
+    "javascript.implicitProjectConfig.checkJs": true,
+    "php-cs-fixer.onsave": true,
+    "php-cs-fixer.config": "/home/itwonders/.vscode/.php_cs",
+    "eslint.options": {
+        "configFile": "./.eslintrc.js"
+    },
+    "php-cs-fixer.executablePath": "/home/itwonders/vendor/bin/php-cs-fixer",
+    "importCost.typescriptExtensions": [
+        "\\.tsx?$",
+        "\\.vue$"
+    ],
+    "window.zoomLevel": -1,
+    "gitlens.keymap": "alternate",
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "vue",
+            "autoFix": true
+        }
+    ],
+    "vetur.validation.script": false,
+    "vetur.validation.style": false,
+}

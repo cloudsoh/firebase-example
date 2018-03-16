@@ -6,8 +6,8 @@ import router from './router'
 import Buefy from 'buefy'
 import VueFire from 'vuefire'
 import firebase from 'firebase'
-require('firebase/firestore')
 import store from '@/store/index'
+require('firebase/firestore')
 // import admin from 'firebase-admin'
 
 var config = {

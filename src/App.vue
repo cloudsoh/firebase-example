@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <div class="hero is-success is-fullheight">
+    <div class="hero is-primary is-fullheight">
       <div class="hero-head">
         <nav class="navbar">
           <div class="container">
             <div class="navbar-brand" v-if="isAuth">
               <a class="navbar-item">
-                <!-- <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo"> -->
                 Logged in as {{ currentUser.email }}
               </a>
               <span class="navbar-burger burger" data-target="navbarMenuHeroB">
@@ -20,6 +19,7 @@
                 <template v-if="isAuth">
                   <router-link to="/dashboard" class="navbar-item">Dashboard</router-link>
                   <router-link to="/subscribe" class="navbar-item">Subscribe</router-link>
+                  <router-link to="/send" class="navbar-item">Send</router-link>
                   <a class="navbar-item" @click="logout">Logout</a>
                 </template>
                 <template v-else>
@@ -40,14 +40,13 @@
 <script>
 import firebase from 'firebase'
 import { mapState, mapGetters } from 'vuex'
-import axios from 'axios'
 
 export default {
     name: 'App',
     data () {
         return {
             loadingComponent: null,
-            messaging: null,
+            messaging: null
         }
     },
     computed: {
@@ -72,8 +71,8 @@ export default {
                     this.$router.replace('Home')
                 })
                 .catch((error) => alert(error))
-        },
-        
+        }
+
     }
 }
 </script>
