@@ -58,7 +58,7 @@ export default {
                     this.$store.dispatch('logout')
                     this.$router.replace('Home')
                 })
-                .catch((error) => alert(error))
+                .catch((error) => this.$toast.open(error))
         }
 
     }

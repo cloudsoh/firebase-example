@@ -81,12 +81,23 @@ export default {
                 })
         },
         login () {
+            let loading = this.$loading.open()
             firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                 .then((response) => {
-                    this.$store.dispatch('login', response)
-                    this.$router.push('dashboard')
+                    axios.post('http://localhost:8000/api/user/login', {'uid': response.uid}).then((resp) => {
+                        this.$store.dispatch('login', response)
+                        this.$router.push('dashboard')
+                        loading.close()
+                    }).catch(() => {
+                        loading.close()
+                        this.$toast.open('Something wrong, please reach out to admin')
+                    })
                 })
-                .catch((error) => alert(error))
+                .catch((error) => {
+                    loading.close()
+                    this.$toast.open(error)
+                }
+                )
         }
     }
 }
