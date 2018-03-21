@@ -9,22 +9,13 @@ import firebase from 'firebase'
 import store from '@/store/index'
 require('firebase/firestore')
 
-var config = {
-    apiKey: 'AIzaSyCJJwbDRjROVaGhpMaJ01I2SyjKcrmn324',
-    authDomain: 'cloudsoh-193811.firebaseapp.com',
-    databaseURL: 'https://cloudsoh-193811.firebaseio.com',
-    projectId: 'cloudsoh-193811',
-    storageBucket: 'cloudsoh-193811.appspot.com',
-    messagingSenderId: '901374182728'
-}
-
 Vue.use(VueFire)
 Vue.use(Buefy)
 
 Vue.config.productionTip = false
-
 let app
-var firebaseApp = firebase.initializeApp(config)
+// Get Key from build's environment key
+var firebaseApp = firebase.initializeApp(process.env.FIREBASE_CONFIG)
 var db = firebaseApp.database()
 
 var firestore = firebaseApp.firestore()
@@ -93,6 +84,8 @@ firebase.auth().onAuthStateChanged((user) => {
         },
         created () {
             this.messaging = firebase.messaging()
+
+            // get web push certificates from the project's cloud messaging config
             this.messaging.usePublicVapidKey('BCF_JCs8Gr6O2TXD8eADD1ELVd3FPWQ5SEKkbytPD0n_oikhbHBiZKw3YFRKP8qNw3_4wwQ6hNzop9hrwy7R9_Y')
             this.requestNotification()
             this.messaging.onTokenRefresh(() => {

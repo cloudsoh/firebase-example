@@ -1,13 +1,14 @@
 importScripts('/__/firebase/4.10.1/firebase.js')
 importScripts('/__/firebase/4.10.1/firebase-firestore.js')
 
+// Get config file from Firebase
 var config = {
-    apiKey: 'AIzaSyCJJwbDRjROVaGhpMaJ01I2SyjKcrmn324',
-    authDomain: 'cloudsoh-193811.firebaseapp.com',
-    databaseURL: 'https://cloudsoh-193811.firebaseio.com',
-    projectId: 'cloudsoh-193811',
-    storageBucket: 'cloudsoh-193811.appspot.com',
-    messagingSenderId: '901374182728'
+    apiKey: 'apiKey',
+    authDomain: 'authDomain',
+    databaseURL: 'databaseURL',
+    projectId: 'projectId',
+    storageBucket: 'storageBucket',
+    messagingSenderId: 'messagingSenderId'
 }
 
 var firebaseApp = firebase.initializeApp(config)

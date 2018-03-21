@@ -27,7 +27,7 @@ export default {
                             token: currentToken,
                             topic: this.topic
                         }
-                        axios.post('https://push-notification-laravel.herokuapp.com/api/blog/subscribe', data)
+                        axios.post(`${process.env.API_URL}/api/blog/subscribe`, data)
                             .then((response) => {
                                 console.log(response)
                             }).catch((err) => {
@@ -52,7 +52,7 @@ export default {
                             registration_tokens: [currentToken],
                             to: `/topics/${this.topic}`
                         }
-                        axios.post('https://push-notification-laravel.herokuapp.com/api/blog/unsubscribe', data)
+                        axios.post(`${process.env.API_URL}/api/blog/unsubscribe`, data)
                             .then((response) => {
                                 console.log(response)
                             }).catch((err) => {

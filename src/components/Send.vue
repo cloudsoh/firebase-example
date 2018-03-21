@@ -33,11 +33,11 @@ export default {
                     'title': this.title,
                     'body': this.message,
                     'icon': 'firebase-logo.png',
-                    'click_action': 'http://firebase.cloudsoh.co'
+                    'click_action': 'http://your.website.com'
                 },
                 'to': (this.isTopic ? '/topics/' : '') + this.target
             }
-            axios.post('https://push-notification-laravel.herokuapp.com/api/blog/send', data)
+            axios.post(`${process.env.API_URL}/api/blog/send`, data)
                 .then((response) => {
                     console.log(response)
                 }).catch((err) => {
