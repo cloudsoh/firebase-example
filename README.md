@@ -1,30 +1,27 @@
-# pwa-firebase
+# firebase-vue-example
 
-> A Vue.js project
+This project use [vue-cli with pwa template](https://github.com/vuejs-templates/pwa).
+It has simple usage with Firebase Cloud Messaging, Firebase Authentication and Firebase Firestore.
+It uses [Laravel Firebase Backend]() for API call.
 
-## Build Setup
 
-``` bash
+# Usage
+```bash
 # install dependencies
 npm install
+```
+Copy your Firebase config to both `src/custom-service-worker.js` and `config/prod.env.js`
 
+```bash
 # serve with hot reload at localhost:8080
 npm run dev
 
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## About
+
+Since I hardly find any example of how to integrate vue with Firebase. I decided to upload it by my own. However, it doesn't mean it is the right approach. Hopefully you guys can correct me for a better approach. Also please give a star if you this repo help you. :) Thanks.
+Kindly [contact me](mailto:cloudsoh03021@gmail.com) for any suggestion or help.

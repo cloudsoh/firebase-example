@@ -86,7 +86,7 @@ firebase.auth().onAuthStateChanged((user) => {
             this.messaging = firebase.messaging()
 
             // get web push certificates from the project's cloud messaging config
-            this.messaging.usePublicVapidKey('BCF_JCs8Gr6O2TXD8eADD1ELVd3FPWQ5SEKkbytPD0n_oikhbHBiZKw3YFRKP8qNw3_4wwQ6hNzop9hrwy7R9_Y')
+            this.messaging.usePublicVapidKey('public_API_key')
             this.requestNotification()
             this.messaging.onTokenRefresh(() => {
                 this.messaging.getToken()
