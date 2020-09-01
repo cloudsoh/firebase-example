@@ -17,7 +17,7 @@
     "@fortawesome/fontawesome": "^1.1.4",
     "@fortawesome/fontawesome-free-solid": "^5.0.8",
     "@fortawesome/vue-fontawesome": "0.0.22",
-    "buefy": "^0.6.3",
+    "buefy": "^0.7.2",
     "firebase": "^4.11.0",
     "firebase-admin": "^5.10.0",
     "node-sass": "^4.7.2",
